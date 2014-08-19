@@ -73,8 +73,8 @@ tempName <- sub("mean","AverageMean",tempName)
 tempName <- sub("std","AverageStd",tempName)
 colnames(tidydata2) <- tempName
 
-####Step 6 export tidydata2 to .csv file
+####Step 6 export tidydata2 to .txt file
 
-##write tidy data frame 2 to .csv file
+##write tidy data frame 2 to .txt file
 write.table(tidydata2,"tidydataset2.txt", row.names = FALSE)
 
