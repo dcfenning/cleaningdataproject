@@ -76,5 +76,5 @@ colnames(tidydata2) <- tempName
 ####Step 6 export tidydata2 to .csv file
 
 ##write tidy data frame 2 to .csv file
-write.csv(tidydata2,"tidydataset2.csv", row.names = FALSE)
+write.table(tidydata2,"tidydataset2.txt", row.names = FALSE)
 
