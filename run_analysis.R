@@ -1,23 +1,22 @@
 
-setwd("~/Coursera/Data Cleaning")
-##Step 1. Download the data from the website into readable format
+##Step 1. Downloads the data from the website into readable format
 
-##Checks to see if the directory already exists, otherwise creates
-##a directory projdata.  Then download the file from fileurl
+##Checks to see if the file already exists, otherwise creates
+##a directory projdata.  Then downloads the file from fileurl
 ##and save it as rawfile.zip. 
-if(!file.exists("./projdata")){
+if(!file.exists("./projdata/rawfile.zip")){
                               dir.create("./projdata")
+                              fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+                              dfile <- "./projdata/rawfile.zip"
+                              download.file(fileUrl, destfile=dfile)
+                              dateDownloaded <- date()                          
                               }
 
-fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-dfile <- "./projdata/rawfile.zip"
-download.file(fileUrl, destfile=dfile)
-dateDownloaded <- date()
 ##Unzip file
 unzip(dfile, overwrite=TRUE, exdir="./projdata")
 
-##Step 2. Merge x training and test data sets to create one data set
-##into merged dataframe: mergeddata
+##Step 2. Read all required .txt files into dataframes ready for tidying and bind together 
+##label column variables
 
 ##read features.txt file data into dataframe - these are the column headers for train & test x data
 featuresdata <- read.table("./projdata/UCI HAR Dataset/features.txt") 
@@ -26,7 +25,6 @@ featuresdata <- read.table("./projdata/UCI HAR Dataset/features.txt")
 testsubjectdata <- read.table("./projdata/UCI HAR Dataset/test/subject_test.txt")
 testydata <- read.table("./projdata/UCI HAR Dataset/test/y_test.txt")
 testxdata <- read.table("./projdata/UCI HAR Dataset/test/X_test.txt")
-
 
 ##read train files into dataframes
 trainsubjectdata <- read.table("./projdata/UCI HAR Dataset/train/subject_train.txt")
@@ -53,7 +51,8 @@ colnames(mergeddata) <- c("subject", "activity",featuredata)
 ##Extract only columns relating to mean and st deviation
 indexMeanStd <- grep("[Mm]ean|[Ss]td|group",featuredata)
 tidydata <- mergeddata[,c(1,2,2+indexMeanStd)] # Add 2 to indexMeanStd because of the additional Subject & Activity columns
-##Tidy up names
+
+##Tidy up column names
 names(tidydata) <- gsub("-","",names(tidydata), fixed = TRUE)
 names(tidydata) <- sub(",","",names(tidydata), fixed = TRUE)
 names(tidydata) <- sub("()","",names(tidydata), fixed = TRUE)
@@ -61,20 +60,21 @@ names(tidydata) <- sub("(","",names(tidydata), fixed = TRUE)
 names(tidydata) <- sub(")","",names(tidydata), fixed = TRUE)
 names(tidydata) <- tolower(names(tidydata))
 
-####Step 4 convert Activity to a factor variable using activitylabels table column 2
+####Step 4 convert Activity variable to a factor variable using activitylabels table column 2
 tidydata$activity <- factor(tidydata$activity, labels = activitylabels$V2)
 
-
-####Step 6 Create a new data frame with the average of each variable 
-##for each activity and each subject and write to a .txt file
-aggdata <- aggregate(tidydata[3:ncol(tidydata)],by=list(tidydata$subject,tidydata$activity),mean, na.rm=TRUE)
+####Step 5 Create a new second tidy data frame with the average for each variable 
+##for each activity and each subject
+tidydata2 <- aggregate(tidydata[3:ncol(tidydata)],by=list(tidydata$subject,tidydata$activity),mean, na.rm=TRUE)
 
 ##relabels column names to include the fact that the columns are now Means
 tempName <- colnames(tidydata)
 tempName <- sub("mean","AverageMean",tempName)
 tempName <- sub("std","AverageStd",tempName)
-colnames(aggdata) <- tempName
+colnames(tidydata2) <- tempName
 
-##writes data to .csv file
-write.csv(aggdata,"tidydataset2.csv", row.names = FALSE)
+####Step 6 export tidydata2 to .csv file
+
+##write tidy data frame 2 to .csv file
+write.csv(tidydata2,"tidydataset2.csv", row.names = FALSE)
 
