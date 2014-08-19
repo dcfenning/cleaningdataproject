@@ -20,65 +20,61 @@ unzip(dfile, overwrite=TRUE, exdir="./projdata")
 ##into merged dataframe: mergeddata
 
 ##read features.txt file data into dataframe - these are the column headers for train & test x data
-featuresdata <- read.table("./projdata/UCI HAR Dataset/features.txt")
+featuresdata <- read.table("./projdata/UCI HAR Dataset/features.txt") 
 
-#####create dataframe with all x data######
-##read x_test.txt file into dataframe
+##read test files into dataframes
+testsubjectdata <- read.table("./projdata/UCI HAR Dataset/test/subject_test.txt")
+testydata <- read.table("./projdata/UCI HAR Dataset/test/y_test.txt")
 testxdata <- read.table("./projdata/UCI HAR Dataset/test/X_test.txt")
 
-##create new factor column that identifies x data in test data frame as being test data
-nrowtestxdata <- nrow(testxdata)
-test <-factor(rep(c("test"), times = nrowtestxdata))
-testxdata$group <- test
 
-##read x_train.txt file into dataframe
+##read train files into dataframes
+trainsubjectdata <- read.table("./projdata/UCI HAR Dataset/train/subject_train.txt")
+trainydata <- read.table("./projdata/UCI HAR Dataset/train/y_train.txt")
 trainxdata <- read.table("./projdata/UCI HAR Dataset/train/X_train.txt")
 
-##create new factor column that identifies x data in train data frame as being train data
-nrowtrainxdata <- nrow(trainxdata)
-train <-factor(rep(c("train"), times = nrowtrainxdata))
-trainxdata$group <- train
+##read activity labels
+activitylabels <- read.table("./projdata/UCI HAR Dataset/activity_labels.txt")
 
-##bind rows from train and test data to create merged data set
-mergeddata <- rbind(testxdata,trainxdata)
+# Bind the test dataset to add subject and label
+testdata <- cbind(testsubjectdata,testydata,testxdata)
+# Bind the training dataset to add subject and label
+traindata <- cbind(trainsubjectdata,trainydata,trainxdata)
+# Merge the test dataset and the training dataset
+mergeddata <- rbind(traindata,testdata)
 
 ##name the columns in mergeddata
-colnames(mergeddata) <- featuresdata$V2
-names(mergeddata)[562] <- "group"
+featuredata <- as.character(featuresdata$V2)
+colnames(mergeddata) <- c("subject", "activity",featuredata)
 
 ####Step 3 extracts only the columns relating to mean and std deviation
 ####and re-label columns with R friendly readable names
-subsetmeanstd<- mergeddata[,grep("[Mm]ean|[Ss]td|group", colnames(mergeddata))]
-names(subsetmeanstd) <- gsub("-","",names(subsetmeanstd), fixed = TRUE)
-names(subsetmeanstd) <- sub(",","",names(subsetmeanstd), fixed = TRUE)
-names(subsetmeanstd) <- sub("()","",names(subsetmeanstd), fixed = TRUE)
-names(subsetmeanstd) <- sub("(","",names(subsetmeanstd), fixed = TRUE)
-names(subsetmeanstd) <- sub(")","",names(subsetmeanstd), fixed = TRUE)
-names(subsetmeanstd) <- tolower(names(subsetmeanstd))
 
-####Step 4 binds y test and train data and labels column activitylabel
-##read y_test.txt and y_train.txt files into dataframes and bind
-testydata <- read.table("./projdata/UCI HAR Dataset/test/y_test.txt")
-trainydata <- read.table("./projdata/UCI HAR Dataset/train/y_train.txt")
-ydatabind <- rbind(testydata,trainydata)
+##Extract only columns relating to mean and st deviation
+indexMeanStd <- grep("[Mm]ean|[Ss]td|group",featuredata)
+tidydata <- mergeddata[,c(1,2,2+indexMeanStd)] # Add 2 to indexMeanStd because of the additional Subject & Activity columns
+##Tidy up names
+names(tidydata) <- gsub("-","",names(tidydata), fixed = TRUE)
+names(tidydata) <- sub(",","",names(tidydata), fixed = TRUE)
+names(tidydata) <- sub("()","",names(tidydata), fixed = TRUE)
+names(tidydata) <- sub("(","",names(tidydata), fixed = TRUE)
+names(tidydata) <- sub(")","",names(tidydata), fixed = TRUE)
+names(tidydata) <- tolower(names(tidydata))
 
-##add new column to merged data frame with factors identifying activity
-activitylabels <- read.table("./projdata/UCI HAR Dataset/activity_labels.txt")
-subsetmeanstd$activitylabel <- ydatabind
-subsetmeanstd$activitylabel <- factor(ydatabind,levels = activitylabels$V1,labels = activitylabels$V2)
+####Step 4 convert Activity to a factor variable using activitylabels table column 2
+tidydata$activity <- factor(tidydata$activity, labels = activitylabels$V2)
 
-####Step 5 binds subject ID's 
-##read subject_test.txt and subject_train.txt files into dataframes and bind
-testsubjectdata <- read.table("./projdata/UCI HAR Dataset/test/subject_test.txt")
-trainsubjectdata <- read.table("./projdata/UCI HAR Dataset/train/subject_train.txt")
-subjectdatabind <- rbind(testsubjectdata, trainsubjectdata)
-
-##new column with factors identifying subject id
-subsetmeanstd$subject <- subjectdatabind
 
 ####Step 6 Create a new data frame with the average of each variable 
-##for each activity and each subject
-attach(subsetmeanstd)
-aggdata <- aggregate(subsetmeanstd, by=list(subsetmeanstd$subject, subsetmeanstd$activitylabel), FUN=mean, na.rm=TRUE)
-print(aggdata)
-detach(subsetmeanstd)
+##for each activity and each subject and write to a .txt file
+aggdata <- aggregate(tidydata[3:ncol(tidydata)],by=list(tidydata$subject,tidydata$activity),mean, na.rm=TRUE)
+
+##relabels column names to include the fact that the columns are now Means
+tempName <- colnames(tidydata)
+tempName <- sub("mean","AverageMean",tempName)
+tempName <- sub("std","AverageStd",tempName)
+colnames(aggdata) <- tempName
+
+##writes data to .csv file
+write.csv(aggdata,"tidydataset2.csv", row.names = FALSE)
+

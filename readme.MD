@@ -9,30 +9,33 @@ Davide Anguita, Alessandro Ghio, Luca Oneto, Xavier Parra and Jorge L. Reyes-Ort
 ==================================================================
 
 Aim of run_analysis.R code, in 6 steps, is to make two tidy data sets ready for analysis from the Human Activity Recognition Using Smartphones Dataset v1.0
-The first data set extracts just the mean and standrad deviation measurements
-The second data set uses the first tidy data set to summarise the mean for each measurement, by subject and by activity
-
+The first tidy data set extracts from the raw data just the mean and standrad deviation measurements.
+The second data set uses the first tidy data set to summarise the mean for each measurement, by subject and by activity.
+The output of run_analysis.R code is the second data set exported to tidydataset2.csv
+See codebook.MD for reference to variables 
 ==================================================================
 
 The data dictionary for both tidy data sets can be found in CodeBook.md
 
 run_analysis.R 
 Step 1:
-Downloads and unzips all the data required from:
+Checks to see if file exists already, 
+if the dile does not exist then downloads and all the data required from:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+and unzips the file.
 
-Step2:
-Binds the .txt files: X_test.txt and x_train.txt into one dataframe.  Creates a new factor column which identifies whether the data originated from test or train data
+Step 2:
+Read all required .txt files into dataframes ready for tidying and binds together the test and train data, then the label column variables from the raw features.txt file
 
 Step 3:
-Extracts from the dataframe only the measurements on the mean and standard deviation for each record and re-labels columns to be R friendly readable names
+Extracts from the dataframe only the measurements on the mean and standard deviation for each record and re-labels columns to be R friendly readable names to create the first tidy data set
 
-Step 4:
-Binds the.txt files: y_test.txt and y_train.txt into one data frame. Creates factors for activites with 6 levels and labeled according to activity_labels.txt
+Step 4: 
+Converts Activity variable to a factor variable using activity_labels.txt table column 2
 
 Step 5:
-Binds the .txt files: subject_test.txt and subject_train.txt Binds subject ID's into the final dataframe to create a final tidy data set
+Creates a new second tidy data set that contains the average for each variable for each activity and each subject
+
 
 Step 6:
-Create another tidy data set which takes the average of the mean and standard deviation for each activity and each subject only.
- 
+Exports tidydata2 to .csv file.

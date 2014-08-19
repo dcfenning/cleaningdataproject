@@ -2,10 +2,11 @@
 Code Book for Coursera Course Getting and Cleaning Data
 Course Project Danielle Fenning
 ==================================================================
-group
-      where the data originated from either test data or train data
-        test
-        train
+run_analysis.R outputs tidydataset2.csv with the following variables
+
+subject
+      ID number for subject
+        1 to 30
       factor
 
 activitylabel
@@ -18,205 +19,303 @@ activitylabel
         6 LAYING
       factor
 
-subject
-      ID number for subject
-        1 to 30
-      factor
 
-tbodyaccmeanx  
-        mean time body accelerated x
+tbodyaccAverageMeanx  
+        Average Mean time body accelerated x
         numeric
 
-tbodyaccmeany
-        mean time body accelerated y 
+tbodyaccAverageMeany
+        Average Mean time body accelerated y 
         numeric
 
-tbodyaccmeanz
-        mean time body accelerated z
+tbodyaccAverageMeanz
+        Average Mean time body accelerated z
         numeric
 
-tbodyaccstdx 
-        stdeviation time body accelerated  x
+tbodyaccAverageAverageStdx 
+        Average Stdeviation time body accelerated  x
         numeric
 
-tbodyaccstdy
-        stdeviation time body accelerated y 
+tbodyaccAverageStdy
+        Average Stdeviation time body accelerated y 
         numeric
 
-tbodyaccstdz
-        stdeviation time body accelerated z
+tbodyaccAverageStdz
+        Average Stdeviation time body accelerated z
         numeric
 
-tgravityaccmeanx
-        mean time gravity accelerated x
+tgravityaccAverageMeanx
+        Average Mean time gravity accelerated x
         numeric
 
-tgravityaccmeany
-        mean time gravity accelerated y
+tgravityaccAverageMeany
+        Average Mean time gravity accelerated y
         numeric
 
-tgravityaccmeanz
-        mean time gravity accelerated z
+tgravityaccAverageMeanz
+        Average Mean time gravity accelerated z
         numeric
 
-tgravityaccstdx
-        stdeviation time gravity accelerated x
+tgravityaccAverageStdx
+        Average Stdeviation time gravity accelerated x
         numeric
 
-tgravityaccstdy
-        stdeviation time gravity accelerated y
+tgravityaccAverageStdy
+        Average Stdeviation time gravity accelerated y
         numeric
 
-tgravityaccstdz
-        stdeviation time gravity accelerated z
+tgravityaccAverageStdz
+        Average Stdeviation time gravity accelerated z
         numeric
 
-tbodyaccjerkmeanx
-        mean time body accelerated jerk x
+tbodyaccjerkAverageMeanx
+        Average Mean time body accelerated jerk x
         numeric
 
-tbodyaccjerkmeany
-        mean time body accelerated jerk y
+tbodyaccjerkAverageMeany
+        Average Mean time body accelerated jerk y
         numeric
 
-tbodyaccjerkmeanz
-        mean time body accelerated jerk z
+tbodyaccjerkAverageMeanz
+        Average Mean time body accelerated jerk z
         numeric
 
-tbodyaccjerkstdx
-        stdev time body accelerated jerk x
+tbodyaccjerkAverageStdx
+        Average Stdev time body accelerated jerk x
         numeric
 
-tbodyaccjerkstdy
-        stdev time body accelerated jerk y
+tbodyaccjerkAverageStdy
+        Average Stdev time body accelerated jerk y
         numeric
 
-tbodyaccjerkstdz
-        stdev time body accelerated jerk z
+tbodyaccjerkAverageStdz
+        Average Stdev time body accelerated jerk z
         numeric
 
-tbodygyromeanx
-        mean time body gyro x
+tbodygyroAverageMeanx
+        Average Mean time body gyro x
         numeric
 
-tbodygyromeany
-        mean time body gyro y
+tbodygyroAverageMeany
+        Average Mean time body gyro y
         numeric
 
-tbodygyromeanz
-        mean time body gyro z
+tbodygyroAverageMeanz
+        Average Mean time body gyro z
         numeric
 
-tbodygyrostdx
-        stdeviation time body gyro x
+tbodygyroAverageStdx
+        Average Stdeviation time body gyro x
         numeric
 
-tbodygyrostdy
-        stdeviation time body gyro y
+tbodygyroAverageStdy
+        Average Stdeviation time body gyro y
         numeric
 
-tbodygyrostdz
-        stdeviation time body gyro z
+tbodygyroAverageStdz
+        Average Stdeviation time body gyro z
         numeric
 
-tbodygyrojerkmeanx
-        mean time body gyro jerk x
+tbodygyrojerkAverageMeanx
+        Average Mean time body gyro jerk x
         numeric
 
-tbodygyrojerkmeany
-        mean time body gyro jerk y
-        numeric
-tbodygyrojerkmeanz
-        mean time body gyro jerk z
-        numeric
-tbodygyrojerkstdx
-        stdeviation time body gyro jerk x
+tbodygyrojerkAverageMeany
+        Average Mean time body gyro jerk y
         numeric
 
-tbodygyrojerkstdy
-        stdeviation time body gyro jerk y
+tbodygyrojerkAverageMeanz
+        Average Mean time body gyro jerk z
         numeric
 
-tbodygyrojerkstdz
-        stdeviation time body gyro jerk z
+tbodygyrojerkAverageStdx
+        Average Stdeviation time body gyro jerk x
         numeric
 
-tbodyaccmagmean
-        mean time body accelerated magnitude
+tbodygyrojerkAverageStdy
+        Average Stdeviation time body gyro jerk y
         numeric
 
-tbodyaccmagstd
-        stdeviation time body accelerated magnitude
+tbodygyrojerkAverageStdz
+        Average Stdeviation time body gyro jerk z
         numeric
 
-tgravityaccmagmean
-        mean time gravity accelerated magnitude
+tbodyaccmagAverageMean
+        Average Mean time body accelerated magnitude
         numeric
 
-tgravityaccmagstd
-        stdeviation time gravity accelerated magnitude
+tbodyaccmagAverageStd
+        Average Stdeviation time body accelerated magnitude
         numeric
 
-tbodyaccjerkmagmean
-        mean time body accelerated jerk magnitude
-        numeric
-tbodyaccjerkmagstd
-        stdeviation time accelerated body jerk magnitude
+tgravityaccmagAverageMean
+        Average Mean time gravity accelerated magnitude
         numeric
 
-tbodyaccjerkmagmean
-        mean time body acelerated jerk magnitude
+tgravityaccmagAverageStd
+        Average Stdeviation time gravity accelerated magnitude
         numeric
 
-tbodygyromagmean   
-tbodygyromagstd"                  
-tbodygyrojerkmagmean" 
-tbodygyrojerkmagstd"
+tbodyaccjerkmagAverageMean
+        Average Mean time body accelerated jerk magnitude
+        numeric
 
-fbodyaccmeanx"        
-fbodyaccmeany"                    
-fbodyaccmeanz"      
-fbodyaccstdx"                     
-fbodyaccstdy"       
-fbodyaccstdz"                     
-fbodyaccmeanfreqx"  
-fbodyaccmeanfreqy"                
-fbodyaccmeanfreqz"  
-fbodyaccjerkmeanx"                
-fbodyaccjerkmeany"      
-fbodyaccjerkmeanz"                
-fbodyaccjerkstdx"       
-fbodyaccjerkstdy"                 
-fbodyaccjerkstdz"    
-fbodyaccjerkmeanfreqx"            
-fbodyaccjerkmeanfreqy"  
-fbodyaccjerkmeanfreqz"            
-fbodygyromeanx"      
-fbodygyromeany"                   
-fbodygyromeanz"   
-fbodygyrostdx"                    
-fbodygyrostdy"   
-fbodygyrostdz"                    
-fbodygyromeanfreqx"        
-fbodygyromeanfreqy"               
-fbodygyromeanfreqz"     
-fbodyaccmagmean"                  
-fbodyaccmagstd"        
-fbodyaccmagmeanfreq"              
-fbodybodyaccjerkmagmean"  
-fbodybodyaccjerkmagstd"           
-fbodybodyaccjerkmagmeanfreq"   
-fbodybodygyromagmean"             
-fbodybodygyromagstd"            
-fbodybodygyromagmeanfreq"         
-fbodybodygyrojerkmagmean"       
-fbodybodygyrojerkmagstd"          
-fbodybodygyrojerkmagmeanfreq"   
-angletbodyaccmeangravity"         
-angletbodyaccjerkmeangravitymean)"
-angletbodygyromeangravitymean"    
-angletbodygyrojerkmeangravitymean" 
-anglexgravitymean"                
-angleygravitymean"            
-anglezgravitymean"                
+tbodyaccjerkmagAverageStd
+        Average Stdeviation time accelerated body jerk magnitude
+        numeric
+
+tbodyaccjerkmagAverageMean
+        Average Mean time body acelerated jerk magnitude
+        numeric
+
+tbodygyromagAverageMean   
+        numeric
+
+tbodygyromagAverageStd
+        numeric
+
+tbodygyrojerkmagAverageMean
+        numeric
+
+tbodygyrojerkmagAverageStd
+        numeric
+
+fbodyaccAverageMeanx   
+        numeric
+
+fbodyaccAverageMeany                    
+        numeric
+
+fbodyaccAverageMeanz      
+        numeric
+
+fbodyaccAverageStdx                     
+        numeric
+
+fbodyaccAverageStdy       
+        numeric
+
+fbodyaccAverageStdz                     
+        numeric
+
+fbodyaccAverageMeanfreqx
+        numeric
+
+fbodyaccAverageMeanfreqy
+        numeric
+
+fbodyaccAverageMeanfreqz  
+        numeric
+
+fbodyaccjerkAverageMeanx                
+        numeric
+
+fbodyaccjerkAverageMeany      
+        numeric
+
+fbodyaccjerkAverageMeanz                
+        numeric
+
+fbodyaccjerkAverageStdx       
+        numeric
+
+fbodyaccjerkAverageStdy                 
+        numeric
+
+fbodyaccjerkAverageStdz    
+        numeric
+
+fbodyaccjerkAverageMeanfreqx
+        numeric
+
+fbodyaccjerkAverageMeanfreqy  
+        numeric
+
+fbodyaccjerkAverageMeanfreqz            
+        numeric
+
+fbodygyroAverageMeanx
+        numeric
+
+fbodygyroAverageMeany                   
+        numeric
+
+fbodygyroAverageMeanz   
+        numeric
+
+fbodygyroAverageStdx                    
+        numeric
+
+fbodygyroAverageStdy   
+        numeric
+
+fbodygyroAverageStdz                    
+        numeric
+
+fbodygyroAverageMeanfreqx
+        numeric
+
+fbodygyroAverageMeanfreqy               
+        numeric
+
+fbodygyroAverageMeanfreqz     
+        numeric
+
+fbodyaccmagAverageMean                
+        numeric
+
+fbodyaccmagAverageStd        
+        numeric
+
+fbodyaccmagAverageMeanfreq
+        numeric
+
+fbodybodyaccjerkmagAverageMean
+        numeric
+
+fbodybodyaccjerkmagAverageStd           
+        numeric
+
+fbodybodyaccjerkmagAverageMeanfreq
+        numeric
+
+fbodybodygyromagAverageMean       
+        numeric
+
+fbodybodygyromagAverageStd            
+        numeric
+
+fbodybodygyromagAverageMeanfreq
+        numeric
+
+fbodybodygyrojerkmagAverageMean       
+        numeric
+
+fbodybodygyrojerkmagAverageStd          
+        numeric
+
+fbodybodygyrojerkmagAverageMeanfreq
+        numeric
+
+angletbodyaccAverageMeangravity      
+        numeric
+
+angletbodyaccjerkAverageMeangravityAverageMean
+        numeric
+
+angletbodygyroAverageMeangravityAverageMean  
+        numeric
+
+angletbodygyrojerkAverageMeangravityAverageMean
+        numeric
+
+anglexgravityAverageMean 
+        numeric
+
+angleygravityAverageMean            
+        numeric
+
+anglezgravityAverageMean                
+        numeric
+
 
